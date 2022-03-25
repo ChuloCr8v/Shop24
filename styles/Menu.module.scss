@@ -1,0 +1,114 @@
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav,
+.show_menu {
+  width: calc(100% - 50px);
+  @include flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #0f0f0f;
+  position: fixed;
+  left: -2px;
+  top: 0;
+  min-height: calc(100vh + 20px);
+  z-index: 20;
+  padding-top: 3rem;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transform: translateX(-150vw);
+  -webkit-transform: translateX(-150vw);
+  -moz-transform: translateX(-150vw);
+  -ms-transform: translateX(-150vw);
+  -o-transform: translateX(-150vw);
+}
+
+.show_menu {
+  transform: translateX(0);
+}
+
+.menu {
+  @include flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10rem;
+  width: 100%;
+}
+
+.menu_item {
+  position: relative;
+  padding: 15px 30px;
+  list-style: none;
+  font-size: 1.2rem;
+  color: white;
+  text-align: left;
+  transition: all 0.3s;
+  cursor: pointer;
+  width: 100%;
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+    &::after {
+      content: "";
+      font-size: 1rem;
+      background: gold;
+      height: 100%;
+      width: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1000;
+    }
+  }
+}
+
+@media (min-width: 688px) {
+  .nav,
+  .show_menu {
+    padding: 0;
+    width: auto;
+    flex-direction: row;
+    justify-content: center;
+    background: transparent;
+    position: relative;
+    min-height: auto;
+    z-index: 20;
+    // padding-top: 5rem;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+
+  .logo {
+    display: none;
+  }
+  .menu {
+    margin-top: 0;
+    flex-direction: row;
+  }
+
+  .menu_item {
+    color: white;
+    padding: 0;
+    margin: 1rem;
+    font-weight: 500;
+    &:hover {
+      color: yellow;
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
