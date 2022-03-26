@@ -1,12 +1,16 @@
 .heading,
 .subtitle {
   font-size: 1.5rem;
-  color: gold;
-  text-align: center;
+  color: black;
+  text-align: left;
+}
+
+.heading {
+  font-weight: bold;
 }
 
 .subtitle {
-  margin-top: 1.5rem;
-  color: white !important;
+  margin-top: .3rem;
+  color: goldenrod !important;
   font-size: 1.1rem;
 }

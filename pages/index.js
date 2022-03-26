@@ -5,6 +5,10 @@ import Hero from '../components/Hero'
 import FeaturedProducts from '../components/FeaturedProducts'
 import ShoeCat from '../components/ShoeCat'
 import BagCat from '../components/BagCat'
+import WatchCat from '../components/WatchCat'
+import ShadeCat from '../components/ShadeCat'
+import Cta from '../components/Cta'
+import Subscribe from '../components/Subscribe'
 
 export default function Home() {
   return (
@@ -20,6 +24,10 @@ export default function Home() {
         <FeaturedProducts />
         <ShoeCat />
         <BagCat />
+        <WatchCat />
+        <Cta />
+        <ShadeCat />
+        <Subscribe />
       </main>
     </div>
   )

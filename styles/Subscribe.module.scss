@@ -1,0 +1,61 @@
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subscribe {
+  @include flex;
+  flex-direction: column;
+  background: linear-gradient(45deg, #ff4c02, #ff315b);
+  padding: 50px 0;
+}
+
+.container {
+  width: min(90%, 80rem);
+  @include flex;
+  flex-direction: column ;
+}
+
+.content_container {
+  @include flex;
+  flex-direction: column;
+}
+
+.title,
+.subtitle {
+  text-align: center;
+  font-size: 2em;
+  color: white;
+}
+
+.subtitle {
+  font-size: 1em;
+  margin-top: -10px;
+}
+
+.subscribe_form {
+  margin-top: 50px;
+}
+
+.email_field,
+.subscribe_btn {
+  padding: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  transition: all 0.3s ease-in-out;
+  &:focus {
+    outline: none;
+    border-left: 2px #000 solid;
+    border-top: 2px #000 solid;
+    border-bottom: 2px #000 solid;
+  }
+}
+
+.subscribe_btn {
+  border-radius: 0 5px 5px 0;
+  &:focus {
+    border-left: 0;
+    border-right: 2px #000 solid;
+  }
+}

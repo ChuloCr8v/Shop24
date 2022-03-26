@@ -1,11 +1,15 @@
-import styles from '../styles/FeaturedProduct.module.scss'
+import styles from '../styles/SingleCat.module.scss'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {FaHeart, FaShoppingCart } from 'react-icons/fa'
+import Loading from './Loading'
 import Heading from './Heading'
 
-const FeaturedProduct = () => {
-  const [featuredProducts, setFeautedProducts] = useState([])
+const ShadeCat = () => {
+
+  const [singleCategory, setSingleCategory] = useState([])
+  const [loading, setLoading] = useState(false)
+  
   
   useEffect(() => {
     
@@ -13,8 +17,8 @@ const FeaturedProduct = () => {
       method: 'GET', 
       url: 'https://amazon24.p.rapidapi.com/api/product',
       params: {
-        categoryID: 'fashion-mens', 
-        keyword: 'men', 
+        categoryID: 'fashion', 
+        keyword: 'rayban', 
         country: 'US', page: '1'
       }, 
   
@@ -26,18 +30,19 @@ const FeaturedProduct = () => {
   
     axios.request(options).then(function (response) { console.log(response.data); 
     const data = response.data.docs
-      setFeautedProducts(data)
+      setSingleCategory(data)
+      setLoading(false)
     }).catch(function (error) { 
       console.error(error); 
     }); 
   }, []) 
 
   return (
-    <section className={styles.featured_products}>
-      <div class={styles.container}>
-        <Heading heading={"Featured Products"} subtitle={"Check out our top trending products at the moment"} />
+    <section className={styles.single_cat}>
+       {loading ? <Loading /> : <div class={styles.container}>
+        <Heading heading={"Designer Sunglasses"} subtitle={"Check out our catalogue of designer sun glasses from top brands"} />
         <div class={styles.products_container}>
-          {featuredProducts.map((product, index) => (
+          {singleCategory.map((product, index) => (
             <div className={styles.product} key={index}>
               <div className={styles.img_container}>
                 <img src={product.product_main_image_url} alt={product.name} className={styles.product_img} />
@@ -59,11 +64,11 @@ const FeaturedProduct = () => {
                 </div>
               </div>
             </div>
-          )).slice(0,6)}
+          )).slice(0, 10)}
         </div>
-      </div>
+      </div>} 
     </section>
    )
 }
 
-export default FeaturedProduct
+export default ShadeCat
