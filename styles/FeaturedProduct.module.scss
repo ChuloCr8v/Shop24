@@ -135,7 +135,7 @@
 }
 
 .fav {
- cursor: pointer;
+  cursor: pointer;
   height: 0;
   @include flex;
   justify-content: space-around ;
@@ -156,5 +156,16 @@
       color: white;
       transition: all 0.3s ease-in-out;
     }
+  }
+}
+
+@media (min-width: 688px) {
+  .products_container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product {
+    margin: 5px;
   }
 }

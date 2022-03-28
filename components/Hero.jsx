@@ -6,17 +6,15 @@ const Hero = () => {
       {
         img: '/images/shoes.png',
         name: 'Luxury Shoes'
-      } 
-      , 
+      }, 
+      {
+        img: '/images/accessories.png',
+        name: 'Accessories'
+      },
       {
         img: '/images/bag.png',
         name: 'Luxury Bags'
-      } 
-      , 
-      {
-        img: '/images/accessories.png',
-        name: 'Luxury Accessories'
-      }, 
+      },  
       {
         img: '/images/winter.png',
         name: 'Thermal Wears'

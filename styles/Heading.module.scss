@@ -1,3 +1,7 @@
+.container {
+  width: 100%;
+}
+
 .heading,
 .subtitle {
   font-size: 1.5rem;
@@ -13,4 +17,5 @@
   margin-top: .3rem;
   color: goldenrod !important;
   font-size: 1.1rem;
+  max-width: 400px;
 }

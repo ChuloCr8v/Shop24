@@ -1,4 +1,4 @@
-import style from '../styles/Cart.module.scss' 
+import styles from '../styles/Cart.module.scss' 
 import Link from 'next/link'
 import Sneakers from '../public/images/sneakers2.jpg'
 import Watch from '../public/images/watch2.jpg'
@@ -6,74 +6,77 @@ import Image from 'next/image'
 import {FaPlus, FaMinus} from 'react-icons/fa'
 
 const Cart = () => {
-  return(
-    <div className={style.cart}>
-      <h1 className={style.cart_title}>Your Cart</h1>
-      <div className={style.wrapper}>
-        <ul className={style.cart_menu}>
-          <li className={style.continue_shopping_button}>
-          <Link href="/">CONTINUE SHOPPING </Link>
-          </li>
-          <li>
-            <Link href="/cart">Shopping Cart(2)</Link>
-          </li>
-          <li>
-            <Link href="/">Your Wish List(0)</Link>
-          </li>
-          <li className={style.checkout_button}>
-            <Link href="/">CHECKOUT NOW</Link>
-          </li>
-        </ul>
-        <div className={style.cart_items}>
-          <div className={style.item}>
-            <div className={style.item_image}>
-              <Image src={Sneakers} height="400" width="400" alt="product" />
-            </div>
-            <div className={style.product_description} >
-              <div className={style.row} >
-                <p><span>Product:</span> Yeezy Sneakers </p>
-                <p><span>ID:</span> 1234567890 </p>
-                <div className={style.color}></div>
-                <p><span>Size:</span> 42 </p>
-              </div>
-              <div className={style.row} >
-                <p className={style.price}> $180 </p>
-                <div className={style.amount_container}>
-                  <FaPlus className={style.icon} />
-                    <p className={style.amount}>1</p>
-                  <FaMinus className={style.icon} />
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className={style.item}>
-            <div className={style.item_image}>
-              <Image src={Watch} height="400" width="400" alt="product" />
-            </div>
-            <div className={style.product_description} >
-              <div className={style.row} >
-                <p><span>Product:</span> Richard Mille Wristwatch </p>
-                <p><span>ID:</span> 0987654321</p>
-                <div className={style.color}></div>
-              </div>
-              <div className={style.row} >
-                <p className={style.price}> $3600 </p>
-                <div className={style.amount_container}>
-                  <FaPlus className={style.icon} />
-                    <p className={style.amount}>3</p>
-                  <FaMinus className={style.icon} />
-                </div>
-              </div>
-            </div>
-          </div>
+  
+  const items = [
+      {
+        name: 'Yeezy Sneakers',
+        img: '/images/sneakers2.jpg', 
+        size: '43', 
+        color: 'red', 
+        price: 120, 
+        qty: 2,
+      }, 
+      {
+        name: 'Richard Mille Wristwatch',
+        img: '/images/watch2.jpg',
+        size: 'L', 
+        color: 'red', 
+        price: 2500, 
+        qty: 3,
+      }
+    ]
+  return (
+    <div className={styles.cart}>
+      <h1 className={styles.cart_title}>Your Cart</h1>
+      <div className={styles.wrapper}>
+        <div className={styles.cart_menu}>
+          <Link href="/">
+            <a className={styles.menu_item}> Shop </a>
+          </Link>
+          <Link href="/cart" >
+            <a className={styles.menu_item}>My Cart(2)</a>
+          </Link>
+          <Link href="/" >
+            <a className={styles.menu_item}>My Wish List(0)</a>
+          </Link>
+          <Link href="/">
+            <a className={styles.menu_item}>Checkout Now</a>
+          </Link>
         </div>
-        <div className={style.cart_summary}>
-          <h3 className={style.summary_title}>Order Summary </h3>
-          <p className={style.summary_detail}><span>Subtotal</span>$780</p>
-          <p className={style.summary_detail}><span>Estimated Shipping</span>$50</p>
-          <p className={style.summary_detail}><span>Shipping Discount</span>-$50</p>
-          <p className={style.summary_total}><span>Total</span>$3780</p>
+        <div className={styles.cart_items}>
+          {items.map((item) => (
+             <div className={styles.item}>
+               <div className={styles.item_image_container}>
+                <div className={styles.item_image}>
+                  <img src={item.img} alt={item.name} />
+                  <p className={styles.price}>${item.price} </p>
+                </div>
+                <h2 className={styles.name}>{item.name}</h2> 
+              </div>
+              <div className={styles.description}>
+                <div className={styles.row}>
+                  <div className={styles.qty_container}>
+                    <button class={styles.qty_btn}> - </button>
+                      <p className={styles.qty}>{item.qty}</p>
+                    <button class={styles.qty_btn}> + </button>
+                  </div>
+                  <div className={styles.color} style={{background: `${item.color}`}} ></div>
+                </div>
+                <div className={styles.row}>
+                  <h2 className={styles.total_title} > Total </h2>
+                  <h2 className={styles.total}>${item.qty * item.price}</h2>
+                </div>
+              </div>
+             </div>
+          ))}
+
+        </div>
+        <div className={styles.cart_summary}>
+          <h3 className={styles.summary_title}>Order Summary </h3>
+          <p className={styles.summary_detail}><span>Subtotal</span>$780</p>
+          <p className={styles.summary_detail}><span>Estimated Shipping</span>$50</p>
+          <p className={styles.summary_detail}><span>Shipping Discount</span>-$50</p>
+          <p className={styles.summary_total}><span>Total</span>$3780</p>
         </div>
       </div>
     </div>

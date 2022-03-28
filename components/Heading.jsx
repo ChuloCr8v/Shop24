@@ -8,7 +8,7 @@ const Heading = ({ heading, subtitle }) => {
     Aos.init({duration: 500});
   })
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className={styles.heading}  data-aos="fade-up" >{heading}</h2>
       <p className={styles.subtitle}  data-aos="fade-up" >{subtitle}</p>
     </div>
