@@ -11,8 +11,11 @@ const Pay = () => {
   const KEY =
   "pk_test_51KkiDeAUFaW3s2nQRhJZ6vn0YcIoAfos8Q8ulVMRb2ihdtrGWoUaek2QEnbBbv5jcK2mOpTE36hj6sKyji0Zrkli00jPqIuVHH";
 
-  const [stripeToken,
-    setStripeToken] = useState(null);
+  const [stripeToken, setStripeToken] = useState(null);
+
+  const onToken = (token) => {
+    setStripeToken(token)
+  };
   useEffect(() => {
     const makeRequest = async () => {
       try {
@@ -28,9 +31,7 @@ const Pay = () => {
     stripeToken && makeRequest()
   }, [stripeToken]);
 
-  const onToken = (token) => {
-    setStripeToken(token)
-  };
+
   return (
     <div
       style={ {
