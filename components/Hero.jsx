@@ -1,23 +1,27 @@
 import styles from '../styles/Hero.module.scss'
-
+import Link from 'next/link'
 const Hero = () => {
   
   const categories = [
       {
         img: '/images/shoes.png',
-        name: 'Luxury Shoes'
+        name: 'Luxury Shoes', 
+        cat: 'shoes'
       }, 
       {
         img: '/images/accessories.png',
-        name: 'Accessories'
+        name: 'Accessories', 
+        cat: 'accessories'
       },
       {
         img: '/images/bag.png',
-        name: 'Luxury Bags'
+        name: 'Luxury Bags',
+        cat: 'bags'
       },  
       {
         img: '/images/winter.png',
-        name: 'Thermal Wears'
+        name: 'Thermal Wears', 
+        cat: 'thermal'
       }
     ]
   return (
@@ -25,11 +29,24 @@ const Hero = () => {
       <div class={styles.container}>
         <div class={styles.category_container}>
           {categories.map((category, index) => (
-            <div className={styles.category} key={index}>
-              <div className={styles.decor}></div>
-              <img src={category.img} alt={category.name} className={styles.category_img} />
-              <p className={styles.name}>{category.name}</p> 
-            </div>
+            <Link
+                href={{
+                  pathname: "/[id]",
+                  query: {
+                    id: 'shop',
+                    cat: category.cat,
+                  },
+                }}
+                key={index}
+              >
+              <a>
+                <div className={styles.category}>
+                  <div className={styles.decor}></div>
+                  <img src={category.img} alt={category.name} className={styles.category_img} />
+                  <p className={styles.name}>{category.name}</p> 
+                </div>
+              </a>
+            </Link>
           ))}
         </div>
       </div>

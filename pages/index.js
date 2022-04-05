@@ -24,15 +24,15 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {/*<Hero />
+        <Hero />
         <FeaturedProducts />
         <ShoeCat />
         <BagCat />
         <WatchCat />
         <Cta />
         <ShadeCat />
-        <Subscribe />*/}
-        <Pay />
+        <Subscribe />
+       {/* <Pay /> */} 
       </main>
     </div>
   );
