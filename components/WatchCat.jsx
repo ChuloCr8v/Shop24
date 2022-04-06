@@ -1,73 +1,94 @@
-import styles from '../styles/SingleCat.module.scss'
-import {useState, useEffect} from 'react'
-import axios from 'axios'
-import {FaHeart, FaShoppingCart } from 'react-icons/fa'
-import Loading from './Loading'
-import Heading from './Heading'
+import styles from "../styles/SingleCat.module.scss";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import Loading from "./Loading";
+import Heading from "./Heading";
 
 const WatchCat = () => {
-  const [watchCategory, setWatchCategory] = useState([])
-  const [loading, setLoading] = useState(false)
-  
-  
+  const [watchCategory, setWatchCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    
     const options = {
-      method: 'GET', 
-      url: 'https://amazon24.p.rapidapi.com/api/product',
+      method: "GET",
+      url: "https://amazon24.p.rapidapi.com/api/product",
       params: {
-        categoryID: 'fashion', 
-        keyword: 'designer wristwatches', 
-        country: 'US', page: '1'
-      }, 
-  
-      headers: { 
-        'X-RapidAPI-Host': 'amazon24.p.rapidapi.com', 
-        'X-RapidAPI-Key': '36b01acaebmsh9a3c7c8b5e4a274p150b23jsn1e1340846474' 
-      } 
-    }; 
-  
-    axios.request(options).then(function (response) { console.log(response.data); 
-    const data = response.data.docs
-      setWatchCategory(data)
-      setLoading(false)
-    }).catch(function (error) { 
-      console.error(error); 
-    }); 
-  }, []) 
+        categoryID: "fashion",
+        keyword: "designer wristwatches",
+        country: "US",
+        page: "1",
+      },
+
+      headers: {
+        "X-RapidAPI-Host": "amazon24.p.rapidapi.com",
+        "X-RapidAPI-Key": "36b01acaebmsh9a3c7c8b5e4a274p150b23jsn1e1340846474",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        const data = response.data.docs;
+        setWatchCategory(data);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <section className={styles.single_cat}>
-       {loading ? <Loading /> : <div class={styles.container}>
-        <Heading heading={"Luxury Wristwatches"} subtitle={"Check out our catalogue of luxury wristwatches from top brands"} />
-        <div class={styles.products_container}>
-          {watchCategory.map((product, index) => (
-            <div className={styles.product} key={index}>
-              <div className={styles.img_container}>
-                <img src={product.product_main_image_url} alt={product.name} className={styles.product_img} />
-              </div>
-              <div className={styles.product_details} >
-                <div className={styles.cart} >
-                  <FaShoppingCart className={styles.icon} />
-                  <p>Add to Cart</p>
-                </div>
-                <div className={styles.product_detail} >
-                  <p className={styles.name}>{product.product_title}</p>
-                </div>
-                <div className={styles.price_container} >
-                  <p className={styles.price} >{product.app_sale_price_currency}{product.app_sale_price}</p>
-                  <div className={styles.fav}>
-                    <FaHeart className={styles.icon} />
-                    <p>Save</p>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={styles.container}>
+          <Heading
+            heading={"Luxury Wristwatches"}
+            subtitle={
+              "Check out our catalogue of luxury wristwatches from top brands"
+            }
+          />
+          <div className={styles.products_container}>
+            {watchCategory
+              .map((product, index) => (
+                <div className={styles.product} key={index}>
+                  <div className={styles.img_container}>
+                    <img
+                      src={product.product_main_image_url}
+                      alt={product.name}
+                      className={styles.product_img}
+                    />
+                  </div>
+                  <div className={styles.product_details}>
+                    <div className={styles.cart}>
+                      <FaShoppingCart className={styles.icon} />
+                      <p>Add to Cart</p>
+                    </div>
+                    <div className={styles.product_detail}>
+                      <p className={styles.name}>{product.product_title}</p>
+                    </div>
+                    <div className={styles.price_container}>
+                      <p className={styles.price}>
+                        {product.app_sale_price_currency}
+                        {product.app_sale_price}
+                      </p>
+                      <div className={styles.fav}>
+                        <FaHeart className={styles.icon} />
+                        <p>Save</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          )).slice(0, 10)}
+              ))
+              .slice(0, 10)}
+          </div>
         </div>
-      </div>} 
+      )}
     </section>
-   )
-}
+  );
+};
 
-export default WatchCat
+export default WatchCat;
