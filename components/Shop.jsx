@@ -30,7 +30,6 @@ const FeaturedProduct = () => {
         console.log(e)
       }
     }
-
     fetchProducts()
   }, [])
 
@@ -84,12 +83,12 @@ Add to Cart
           </div>
                 <div className={styles.product_detail}>
                   <p className={styles.name}>
-                {product.product_title}
+                {product.title}
             </p>
           </div>
                 <div className={styles.price_container}>
                   <p className={styles.price}>
-                {product.app_sale_price_currency}{product.app_sale_price}
+                  {product.price}
             </p>
                   <div className={styles.fav}>
                     <FaHeart className={styles.icon} />
