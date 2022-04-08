@@ -41,14 +41,15 @@ const FeaturedProduct = () => {
   };
 
   useEffect(() => {
-  setFilteredProducts(
+    cat &&
+      setFilteredProducts(
         products.filter((item) =>
-          Object.entries(filters).every(([key, value]) => {
-            item[key].includes(value);
-          })
+          Object.entries(filters).every(([key, value]) =>
+            item[key].includes(value)
+          )
         )
       );
-  }, [filters, cat, products]);
+  }, [products, cat, filters]);
 
   useEffect(() => {
     console.log(products);
@@ -78,7 +79,7 @@ const FeaturedProduct = () => {
             <option defaultValue>Size</option>
             <option>s</option>
             <option>m</option>
-            <option>l</option>
+            <option>L</option>
             <option>xl</option>
           </select>
           <select
@@ -95,61 +96,61 @@ const FeaturedProduct = () => {
           </select>
         </div>
         <div className={styles.products_container}>
-          {cat ? filteredProducts.map((product) => (
-            <div className={styles.product} key={product._id}>
-              <div className={styles.img_container}>
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className={styles.product_img}
-                />
-              </div>
-              <div className={styles.product_details}>
-                <div className={styles.cart}>
-                  <FaShoppingCart className={styles.icon} />
-                  <p>Add to Cart</p>
-                </div>
-                <div className={styles.product_detail}>
-                  <p className={styles.name}>{product.title}</p>
-                </div>
-                <div className={styles.price_container}>
-                  <p className={styles.price}>{product.price}</p>
-                  <div className={styles.fav}>
-                    <FaHeart className={styles.icon} />
-                    <p>Save</p>
+          {cat
+            ? filteredProducts.map((product) => (
+                <div className={styles.product} key={product._id}>
+                  <div className={styles.img_container}>
+                    <img
+                      src={product.img}
+                      alt={product.name}
+                      className={styles.product_img}
+                    />
+                  </div>
+                  <div className={styles.product_details}>
+                    <div className={styles.cart}>
+                      <FaShoppingCart className={styles.icon} />
+                      <p>Add to Cart</p>
+                    </div>
+                    <div className={styles.product_detail}>
+                      <p className={styles.name}>{product.title}</p>
+                    </div>
+                    <div className={styles.price_container}>
+                      <p className={styles.price}>{product.price}</p>
+                      <div className={styles.fav}>
+                        <FaHeart className={styles.icon} />
+                        <p>Save</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          )) :
-            products.map((product) => (
-            <div className={styles.product} key={product._id}>
-              <div className={styles.img_container}>
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className={styles.product_img}
-                />
-              </div>
-              <div className={styles.product_details}>
-                <div className={styles.cart}>
-                  <FaShoppingCart className={styles.icon} />
-                  <p>Add to Cart</p>
-                </div>
-                <div className={styles.product_detail}>
-                  <p className={styles.name}>{product.title}</p>
-                </div>
-                <div className={styles.price_container}>
-                  <p className={styles.price}>{product.price}</p>
-                  <div className={styles.fav}>
-                    <FaHeart className={styles.icon} />
-                    <p>Save</p>
+              ))
+            : products.map((product) => (
+                <div className={styles.product} key={product._id}>
+                  <div className={styles.img_container}>
+                    <img
+                      src={product.img}
+                      alt={product.name}
+                      className={styles.product_img}
+                    />
+                  </div>
+                  <div className={styles.product_details}>
+                    <div className={styles.cart}>
+                      <FaShoppingCart className={styles.icon} />
+                      <p>Add to Cart</p>
+                    </div>
+                    <div className={styles.product_detail}>
+                      <p className={styles.name}>{product.title}</p>
+                    </div>
+                    <div className={styles.price_container}>
+                      <p className={styles.price}>{product.price}</p>
+                      <div className={styles.fav}>
+                        <FaHeart className={styles.icon} />
+                        <p>Save</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          )) 
-          }
+              ))}
         </div>
       </div>
     </section>
