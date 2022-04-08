@@ -33,7 +33,7 @@ const Hero = () => {
                 pathname: "/[id]",
                 query: {
                   id: "shop",
-                  cat: category.cat,
+                  category: category.cat,
                 },
               }}
               key={index}

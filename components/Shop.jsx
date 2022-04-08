@@ -7,17 +7,20 @@ import { useRouter } from "next/router";
 
 const FeaturedProduct = (props) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
 
   const router = useRouter();
-  const cat = router.query.cat;
+  const cat = router.query.category;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const fetchProducts = await axios.get(
-          `http://localhost:5000/api/products`
+          cat
+            ? `http://localhost:5000/api/products?category=${cat}`
+            : `http://localhost:5000/api/products`
         );
 
         setProducts(fetchProducts.data);
@@ -25,11 +28,8 @@ const FeaturedProduct = (props) => {
         console.log(e);
       }
     };
-
     fetchProducts();
-  }, []);
-
-  useEffect(() => {}, []);
+  }, [cat]);
 
   const handleFilters = (e) => {
     const value = e.target.value;
@@ -40,6 +40,22 @@ const FeaturedProduct = (props) => {
     console.log(filters);
   };
 
+  useEffect(() => {
+    cat &&
+      setFilteredProducts(
+        products.filter((item) =>
+          Object.entries(filters).every(([key, value]) => {
+            item[key].includes(value);
+          })
+        )
+      );
+  }, [filters, cat, products]);
+
+  useEffect(() => {
+    console.log(products);
+    console.log(filteredProducts);
+  }, [products, filteredProducts, filters]);
+
   return (
     <section className={styles.featured_products}>
       <div className={styles.container}>
@@ -49,9 +65,7 @@ const FeaturedProduct = (props) => {
             className={styles.filter}
             onChange={handleFilters}
           >
-            <option disabled selected>
-              Color
-            </option>
+            <option defaultValue>Color</option>
             <option>White</option>
             <option>Black</option>
             <option>Red</option>
@@ -62,9 +76,7 @@ const FeaturedProduct = (props) => {
             className={styles.filter}
             onChange={handleFilters}
           >
-            <option disabled selected>
-              Size
-            </option>
+            <option defaultValue>Size</option>
             <option>S</option>
             <option>M</option>
             <option>L</option>
@@ -77,9 +89,7 @@ const FeaturedProduct = (props) => {
               console.log(sort);
             }}
           >
-            <option disabled selected>
-              Sort
-            </option>
+            <option defaultValue>Sort</option>
             <option value="newest">Newest</option>
             <option value="asc">Price (asc)</option>
             <option value="dsc">Price (dsc)</option>
@@ -101,13 +111,10 @@ const FeaturedProduct = (props) => {
                   <p>Add to Cart</p>
                 </div>
                 <div className={styles.product_detail}>
-                  <p className={styles.name}>{product.product_title}</p>
+                  <p className={styles.name}>{product.title}</p>
                 </div>
                 <div className={styles.price_container}>
-                  <p className={styles.price}>
-                    {product.app_sale_price_currency}
-                    {product.app_sale_price}
-                  </p>
+                  <p className={styles.price}>{product.price}</p>
                   <div className={styles.fav}>
                     <FaHeart className={styles.icon} />
                     <p>Save</p>
