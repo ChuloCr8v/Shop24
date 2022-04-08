@@ -5,7 +5,7 @@ import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import Heading from "./Heading";
 import { useRouter } from "next/router";
 
-const FeaturedProduct = (props) => {
+const FeaturedProduct = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filters, setFilters] = useState({});
@@ -41,8 +41,7 @@ const FeaturedProduct = (props) => {
   };
 
   useEffect(() => {
-    cat &&
-      setFilteredProducts(
+  setFilteredProducts(
         products.filter((item) =>
           Object.entries(filters).every(([key, value]) => {
             item[key].includes(value);
@@ -66,10 +65,10 @@ const FeaturedProduct = (props) => {
             onChange={handleFilters}
           >
             <option defaultValue>Color</option>
-            <option>White</option>
-            <option>Black</option>
-            <option>Red</option>
-            <option>Yellow</option>
+            <option>white</option>
+            <option>black</option>
+            <option>red</option>
+            <option>yellow</option>
           </select>
           <select
             name="size"
@@ -77,10 +76,10 @@ const FeaturedProduct = (props) => {
             onChange={handleFilters}
           >
             <option defaultValue>Size</option>
-            <option>S</option>
-            <option>M</option>
-            <option>L</option>
-            <option>XL</option>
+            <option>s</option>
+            <option>m</option>
+            <option>l</option>
+            <option>xl</option>
           </select>
           <select
             className={styles.filter}
@@ -96,7 +95,7 @@ const FeaturedProduct = (props) => {
           </select>
         </div>
         <div className={styles.products_container}>
-          {products.map((product) => (
+          {cat ? filteredProducts.map((product) => (
             <div className={styles.product} key={product._id}>
               <div className={styles.img_container}>
                 <img
@@ -122,7 +121,35 @@ const FeaturedProduct = (props) => {
                 </div>
               </div>
             </div>
-          ))}
+          )) :
+            products.map((product) => (
+            <div className={styles.product} key={product._id}>
+              <div className={styles.img_container}>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className={styles.product_img}
+                />
+              </div>
+              <div className={styles.product_details}>
+                <div className={styles.cart}>
+                  <FaShoppingCart className={styles.icon} />
+                  <p>Add to Cart</p>
+                </div>
+                <div className={styles.product_detail}>
+                  <p className={styles.name}>{product.title}</p>
+                </div>
+                <div className={styles.price_container}>
+                  <p className={styles.price}>{product.price}</p>
+                  <div className={styles.fav}>
+                    <FaHeart className={styles.icon} />
+                    <p>Save</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )) 
+          }
         </div>
       </div>
     </section>
@@ -130,12 +157,3 @@ const FeaturedProduct = (props) => {
 };
 
 export default FeaturedProduct;
-
-export async function getServerSideProps(context) {
-  console.log(context.query);
-  return {
-    props: {
-      cat: context.query.cat,
-    },
-  };
-}
