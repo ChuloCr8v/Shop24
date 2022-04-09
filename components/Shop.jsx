@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import Heading from "./Heading";
 import { useRouter } from "next/router";
+import Product from './Product'
 
 const FeaturedProduct = () => {
   const [products, setProducts] = useState([]);
@@ -52,9 +53,16 @@ const FeaturedProduct = () => {
   }, [products, cat, filters]);
 
   useEffect(() => {
-    console.log(products);
-    console.log(filteredProducts);
-  }, [products, filteredProducts, filters]);
+     if(sort == "newest"){
+        setSort("")
+     } else if(sort === "asc"){
+       setFilteredProducts((prev) => [...prev].sort((a,b) => a.price - b.price
+       ))
+     } else {
+       setFilteredProducts((prev) => [...prev].sort((a,b) => b.price - a.price))
+       console.log(sort)
+     }
+  }, [sort]);
 
   return (
     <section className={styles.featured_products}>
@@ -66,10 +74,10 @@ const FeaturedProduct = () => {
             onChange={handleFilters}
           >
             <option defaultValue>Color</option>
-            <option>white</option>
-            <option>black</option>
-            <option>red</option>
-            <option>yellow</option>
+            <option>White</option>
+            <option>Black</option>
+            <option>Red</option>
+            <option>Yellow</option>
           </select>
           <select
             name="size"
@@ -77,10 +85,10 @@ const FeaturedProduct = () => {
             onChange={handleFilters}
           >
             <option defaultValue>Size</option>
-            <option>s</option>
-            <option>m</option>
+            <option>S</option>
+            <option>M</option>
             <option>L</option>
-            <option>xl</option>
+            <option>XL</option>
           </select>
           <select
             className={styles.filter}
@@ -98,58 +106,10 @@ const FeaturedProduct = () => {
         <div className={styles.products_container}>
           {cat
             ? filteredProducts.map((product) => (
-                <div className={styles.product} key={product._id}>
-                  <div className={styles.img_container}>
-                    <img
-                      src={product.img}
-                      alt={product.name}
-                      className={styles.product_img}
-                    />
-                  </div>
-                  <div className={styles.product_details}>
-                    <div className={styles.cart}>
-                      <FaShoppingCart className={styles.icon} />
-                      <p>Add to Cart</p>
-                    </div>
-                    <div className={styles.product_detail}>
-                      <p className={styles.name}>{product.title}</p>
-                    </div>
-                    <div className={styles.price_container}>
-                      <p className={styles.price}>{product.price}</p>
-                      <div className={styles.fav}>
-                        <FaHeart className={styles.icon} />
-                        <p>Save</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Product product={product} key={product._id}/>
               ))
             : products.map((product) => (
-                <div className={styles.product} key={product._id}>
-                  <div className={styles.img_container}>
-                    <img
-                      src={product.img}
-                      alt={product.name}
-                      className={styles.product_img}
-                    />
-                  </div>
-                  <div className={styles.product_details}>
-                    <div className={styles.cart}>
-                      <FaShoppingCart className={styles.icon} />
-                      <p>Add to Cart</p>
-                    </div>
-                    <div className={styles.product_detail}>
-                      <p className={styles.name}>{product.title}</p>
-                    </div>
-                    <div className={styles.price_container}>
-                      <p className={styles.price}>{product.price}</p>
-                      <div className={styles.fav}>
-                        <FaHeart className={styles.icon} />
-                        <p>Save</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                 <Product product={product} key={product._id} />
               ))}
         </div>
       </div>

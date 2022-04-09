@@ -12,8 +12,11 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background: rgba(0, 0, 0);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background-image: url(/images/loading.jpg);
+  background-size: cover;
+  background-repeat: no-repeat ;
+  background-position: center ;
+  box-shadow: inset 10px 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   z-index: 10000;
@@ -22,6 +25,8 @@
 .container {
   @include flex;
   flex-direction: column;
+  width: 300px;
+  height: 200px;
   padding: 40px 20px;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px 10px rgba(31, 38, 135, 0.7);
@@ -33,25 +38,24 @@
 
 .icon,
 .loading_msg {
-  color: white;
   font-size: 1rem;
   text-align: center;
 }
 
 .icon {
   transformt: scale(0.5);
-  color: gold;
+  color: yellow;
   animation: rotate 1s infinite alternate;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .loading_msg {
-  color: goldenrod;
-  margin-top: 2rem;
+  color: white;
+  margin-top: 1rem;
 }
 
 @keyframes rotate {
   100% {
-    transform: rotate(360deg) scale(2.5);
+    transform: scale(2.5);
   }
 }
