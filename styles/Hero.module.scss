@@ -43,8 +43,9 @@
     .decor {
       &::after {
         background: red;
-        animation: move 2s infinite alternate;
-      }
+        animation: move 2s infinite;
+        -webkit-animation: move 2s infinite;
+}
     }
   }
 }
