@@ -4,8 +4,21 @@ import Sneakers from "../public/images/sneakers2.jpg";
 import Watch from "../public/images/watch2.jpg";
 import Image from "next/image";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import {useState, useEffect} from 'react'
+
 
 const Cart = () => {
+  
+  const [orderQty, setOrderQty] = useState(1)
+
+  const handleClick = (type) => {
+    if (type === "increase"){
+      setOrderQty(orderQty + 1)
+      console.log(type.item._id)
+    } else if (type === "decrease") {
+      orderQty > 1 && setOrderQty(orderQty - 1)
+    }
+  }
   const items = [
     {
       name: "Yeezy Sneakers",
@@ -44,7 +57,7 @@ const Cart = () => {
         </div>
         <div className={styles.cart_items}>
           {items.map((item) => (
-            <div className={styles.item}>
+            <div className={styles.item} key={item._id}>
               <div className={styles.item_image_container}>
                 <div className={styles.item_image}>
                   <img src={item.img} alt={item.name} />
@@ -55,9 +68,19 @@ const Cart = () => {
               <div className={styles.description}>
                 <div className={styles.row}>
                   <div className={styles.qty_container}>
-                    <button className={styles.qty_btn}> - </button>
-                    <p className={styles.qty}>{item.qty}</p>
-                    <button className={styles.qty_btn}> + </button>
+                    <button 
+                      className={styles.qty_btn}
+                      onClick={() => handleClick('decrease')} 
+                      > 
+                      - 
+                    </button>
+                    <p className={styles.qty}>{orderQty}</p>
+                    <button 
+                      className={styles.qty_btn}
+                      onClick={() => handleClick('increase')} 
+                    >
+                      + 
+                    </button>
                   </div>
                   <div
                     className={styles.color}
