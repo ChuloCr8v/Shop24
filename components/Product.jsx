@@ -1,8 +1,16 @@
 import styles from "../styles/FeaturedProduct.module.scss";
 import { FaShoppingCart, FaHeart, FaSearch } from "react-icons/fa";
 import Link from "next/link";
+import { addProduct } from "./redux/CartRedux";
+import { useDispatch } from "react-redux";
 
 const Product = ({ product }) => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(addProduct({ product, quantity }));
+  };
+
   return (
     <div className={styles.product}>
       <div className={styles.img_container}>
@@ -14,10 +22,10 @@ const Product = ({ product }) => {
       </div>
       <div className={styles.product_details}>
         <div className={styles.cart_container}>
-          <div className={styles.cart}>
+          <button className={styles.cart} onClick={handleClick}>
             <FaShoppingCart className={styles.icon} />
             <p>Add to Cart</p>
-          </div>
+          </button>
           <Link
             href={{
               pathname: "/[id]",
@@ -28,6 +36,7 @@ const Product = ({ product }) => {
                 desc: product.desc,
                 color: product.color,
                 size: product.size,
+                product: product,
               },
             }}
           >

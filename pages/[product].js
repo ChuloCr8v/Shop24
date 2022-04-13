@@ -3,18 +3,26 @@ import Image from "next/image";
 import ProductImg from "../public/images/sneakers2.jpg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { addProduct } from "../components/redux/CartRedux";
+import { useDispatch } from "react-redux";
 
 const SingleProduct = (props) => {
-  const [orderQty, setOrderQty] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
 
   const handleQty = (type) => {
     if (type === "increase") {
-      setOrderQty(orderQty + 1);
+      setQuantity(quantity + 1);
     } else if (type === "decrease") {
-      orderQty > 1 && setOrderQty(orderQty - 1);
+      quantity > 1 && setQuantity(quantity - 1);
     }
+  };
+
+  const dispatch = useDispatch();
+  const product = props.product;
+  const handleClick = () => {
+    dispatch(addProduct({ product, quantity }));
   };
 
   return (
@@ -62,14 +70,16 @@ const SingleProduct = (props) => {
                 onClick={() => handleQty("decrease")}
               />
               <div className={styles.quantity}>
-                <p>{orderQty}</p>
+                <p>{quantity}</p>
               </div>
               <FaChevronRight
                 className={styles.arrow}
                 onClick={() => handleQty("increase")}
               />
             </div>
-            <button className={styles.add_to_cart_button}> ADD TO CART </button>
+            <button className={styles.add_to_cart_button} onClick={handleClick}>
+              ADD TO CART
+            </button>
           </div>
         </div>
       </div>
@@ -89,6 +99,7 @@ export async function getServerSideProps(context) {
       desc: context.query.desc,
       color: context.query.color,
       size: context.query.size,
+      product: context.query.product,
     },
   };
 }
