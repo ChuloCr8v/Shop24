@@ -2,10 +2,12 @@ import style from "../styles/NavBar.module.scss";
 import Link from "next/link";
 import { FaShoppingCart, FaSearch, FaUser } from "react-icons/fa";
 import { useState } from "react";
+import {useSelector} from 'react-redux'
 
 const NavBar = () => {
   const [showUserLogin, setShowUserLogin] = useState(false);
-
+  const cart = useSelector(state => state.cart)
+  console.log(cart)
   return (
     <nav className={style.navbar}>
       <ul className={style.menu}>
