@@ -27,14 +27,16 @@ const SingleProduct = (props) => {
         </div>
         <p className={styles.product_price}>{props.price}</p>
         <div className={styles.filter_container}>
-          <div className={styles.color_filter}>
+           <div className={styles.color_filter}>
+           <div className={styles.filters}>
             <h3>Color</h3>
-            <div className={styles.colors}>
+            <div className={styles.color}>
               <select className={styles.filter}>
                 {props.color.map((c) => (
-                  <option styles={{ background: { c } }}>{c}</option>
+                  <option>{c}</option>
                 ))}
               </select>
+            </div>
             </div>
             <div className={styles.size_filter}>
               <h3>Size</h3>
@@ -44,7 +46,7 @@ const SingleProduct = (props) => {
                 ))}
               </select>
             </div>
-          </div>
+            </div>
           <div className={styles.quantity_cart_container}>
             <div className={styles.product_quantity}>
               <FaChevronLeft
