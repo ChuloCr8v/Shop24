@@ -11,12 +11,11 @@ const Cart = () => {
   
   const [orderQty, setOrderQty] = useState(1)
   const cart = useSelector(state => state.cart.products)
-  console.log(cart)
-  
+  //console.log(cart)
+ 
   const handleClick = (type) => {
     if (type === "increase"){
       setOrderQty(orderQty + 1)
-      console.log(type.item._id)
     } else if (type === "decrease") {
       orderQty > 1 && setOrderQty(orderQty - 1)
     }

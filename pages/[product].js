@@ -4,12 +4,18 @@ import ProductImg from "../public/images/sneakers2.jpg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { addProduct } from "../components/redux/CartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios'
 
 const SingleProduct = (props) => {
+  
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
+  const [product, setProduct] = useState([])
+
+
+  
 
   const handleQty = (type) => {
     if (type === "increase") {
@@ -20,12 +26,14 @@ const SingleProduct = (props) => {
   };
 
   const dispatch = useDispatch();
-  const product = props.product;
-  console.log(props.product);
-  const pro = [...product];
+  const cart = useSelector(state => state.cart)
+  //console.log(cart);
+  
+  
   const handleClick = () => {
     dispatch(
       addProduct({
+        product, 
         size,
         color,
         quantity,
@@ -33,7 +41,23 @@ const SingleProduct = (props) => {
       })
     );
   };
+ 
 
+useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/products/${props.id}`)
+        setProduct(res.data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }, [])
+  
+  useEffect(() => {
+     console.log(product)
+  }, [handleClick]) 
+  
   return (
     <div className={styles.single_product}>
       <div className={styles.product_image_container}>
@@ -102,7 +126,7 @@ export async function getServerSideProps(context) {
   //  console.log(context.query.id)
   return {
     props: {
-      // id: context.query.id,
+      id: context.query._id,
       price: context.query.price,
       title: context.query.title,
       desc: context.query.desc,
