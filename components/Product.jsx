@@ -3,10 +3,20 @@ import { FaShoppingCart, FaHeart, FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import { addProduct } from "./redux/CartRedux";
 import { useDispatch } from "react-redux";
-
+import {useState} from 'react'
 const Product = ({ product }) => {
-  const dispatch = useDispatch();
+  
+  const [quantity, setQuantity] = useState(1);
 
+  const handleQty = (type) => {
+    if (type === "increase") {
+      setQuantity(quantity + 1);
+    } else if (type === "decrease") {
+      quantity > 1 && setQuantity(quantity - 1);
+    }
+  };
+
+  const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(addProduct({ product, quantity }));
   };
