@@ -5,17 +5,13 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { addProduct } from "../components/redux/CartRedux";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios'
+import axios from "axios";
 
 const SingleProduct = (props) => {
-  
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
-  const [product, setProduct] = useState([])
-
-
-  
+  const [product, setProduct] = useState([]);
 
   const handleQty = (type) => {
     if (type === "increase") {
@@ -26,14 +22,13 @@ const SingleProduct = (props) => {
   };
 
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart)
+  const cart = useSelector((state) => state.cart);
   //console.log(cart);
-  
-  
+
   const handleClick = () => {
     dispatch(
       addProduct({
-        product, 
+        ...product,
         size,
         color,
         quantity,
@@ -41,23 +36,26 @@ const SingleProduct = (props) => {
       })
     );
   };
- 
 
-useEffect(() => {
+  useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/products/${props.id}`)
-        setProduct(res.data)
+        console.log(props.id);
+        const res = await axios.get(
+          `http://localhost:5000/api/products/${props.id}`
+        );
+        setProduct(res.data);
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-    }
-  }, [])
-  
+    };
+    fetchProduct();
+  }, []);
+
   useEffect(() => {
-     console.log(product)
-  }, [handleClick]) 
-  
+    console.log(product);
+  }, []);
+
   return (
     <div className={styles.single_product}>
       <div className={styles.product_image_container}>
