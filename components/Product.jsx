@@ -29,7 +29,7 @@ const Product = ({ product }) => {
                 id: "product",
                 price: product.price,
                 desc: product.desc,
-                product: product,
+                product, 
                 color: product.color,
                 size: product.size,
               },

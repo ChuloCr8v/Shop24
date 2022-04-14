@@ -5,12 +5,14 @@ import Watch from "../public/images/watch2.jpg";
 import Image from "next/image";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import {useState, useEffect} from 'react'
-
+import {useSelector} from 'react-redux'
 
 const Cart = () => {
   
   const [orderQty, setOrderQty] = useState(1)
-
+  const cart = useSelector(state => state.cart.products)
+  console.log(cart)
+  
   const handleClick = (type) => {
     if (type === "increase"){
       setOrderQty(orderQty + 1)
