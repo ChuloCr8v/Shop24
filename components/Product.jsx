@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const Product = ({ product }) => {
+  console.log(product);
   return (
     <div className={styles.product}>
       <div className={styles.img_container}>
@@ -29,7 +30,7 @@ const Product = ({ product }) => {
                 id: "product",
                 price: product.price,
                 desc: product.desc,
-                product, 
+                product: product,
                 color: product.color,
                 size: product.size,
               },

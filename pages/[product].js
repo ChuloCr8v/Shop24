@@ -21,8 +21,17 @@ const SingleProduct = (props) => {
 
   const dispatch = useDispatch();
   const product = props.product;
+  console.log(props.product);
+  const pro = [...product];
   const handleClick = () => {
-    dispatch(addProduct({ product: props.product, quantity, total: props.price * quantity })) 
+    dispatch(
+      addProduct({
+        size,
+        color,
+        quantity,
+        total: props.price * quantity,
+      })
+    );
   };
 
   return (
