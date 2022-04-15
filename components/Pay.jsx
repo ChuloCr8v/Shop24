@@ -53,7 +53,7 @@ const Pay = () => {
         <button>Pay</button>
       </StripeCheckout>
     </div>
-  );
+);
 };
 
 export default Pay;

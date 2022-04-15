@@ -6,10 +6,11 @@ import Image from "next/image";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
+import StripeCheckout from "react-stripe-checkout";
 
 const Cart = () => {
-  
   const [orderQty, setOrderQty] = useState(1)
+  const [stripeToken, setStripeToken] = useState(null); 
   
   const cart = useSelector(state => state.cart)
   const cartQty = useSelector(state => state.cart.quantity)
@@ -23,6 +24,31 @@ const Cart = () => {
     }
   }
   
+  const KEY =
+    "pk_test_51KkiDeAUFaW3s2nQRhJZ6vn0YcIoAfos8Q8ulVMRb2ihdtrGWoUaek2QEnbBbv5jcK2mOpTE36hj6sKyji0Zrkli00jPqIuVHH";
+
+  const onToken = (token) => {
+    setStripeToken(token);
+    console.log(stripeToken.id);
+  };
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+         await axios.post(
+          "http://localhost:5000/api/checkout/payment",
+          {
+            amount: 2000,
+            tokenId: stripeToken.id,
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    stripeToken && makeRequest;
+  }, [stripeToken]);
+
   return (
     <div className={styles.cart}>
       <h1 className={styles.cart_title}>Your Cart</h1>
@@ -38,7 +64,17 @@ const Cart = () => {
             <a className={styles.menu_item}>My Wish List(0)</a>
           </Link>
           <Link href="/">
+            <StripeCheckout
+              description= 'Your Total is ${cart.total}' 
+              amount={cart.total * 100} 
+              token={onToken}
+              stripeKey={KEY}
+              billingAddres
+              ShippingAddress
+              name="shop24seven"
+          >
             <a className={styles.menu_item}>Checkout Now</a>
+          </StripeCheckout>
           </Link>
         </div>
         <div className={styles.cart_items}>
