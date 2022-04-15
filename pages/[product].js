@@ -20,11 +20,9 @@ const SingleProduct = (props) => {
       quantity > 1 && setQuantity(quantity - 1);
     }
   };
-
+  
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  //console.log(cart);
-
+ 
   const handleClick = () => {
     dispatch(
       addProduct({
@@ -40,7 +38,6 @@ const SingleProduct = (props) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log(props.id);
         const res = await axios.get(
           `http://localhost:5000/api/products/${props.id}`
         );
@@ -50,10 +47,6 @@ const SingleProduct = (props) => {
       }
     };
     fetchProduct();
-  }, []);
-
-  useEffect(() => {
-    console.log(product);
   }, []);
 
   return (

@@ -2,13 +2,20 @@ import '../styles/globals.css'
 import Layout from './layout/Layout'
 import {Provider} from 'react-redux'
 import store from '../components/redux/store'
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function MyApp({ Component, pageProps }) {
+  let persistor = persistStore(store); 
   return (
     <Provider store={store}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+      <PersistGate persistor={persistor}>
+        {() => (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )} 
+      </PersistGate>
     </Provider>
    ) 
 }

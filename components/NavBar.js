@@ -7,9 +7,7 @@ import { useSelector } from "react-redux";
 const NavBar = () => {
   const [showUserLogin, setShowUserLogin] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
-  const cart = useSelector((state) => state.cart);
-  console.log(quantity);
-  console.log(cart);
+  
   return (
     <nav className={style.navbar}>
       <ul className={style.menu}>

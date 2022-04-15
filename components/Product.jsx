@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const Product = ({ product }) => {
-console.log(product);
   return (
     <div className={styles.product}>
       <div className={styles.img_container}>

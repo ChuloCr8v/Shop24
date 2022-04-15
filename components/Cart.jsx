@@ -10,9 +10,11 @@ import {useSelector} from 'react-redux'
 const Cart = () => {
   
   const [orderQty, setOrderQty] = useState(1)
-  const cart = useSelector(state => state.cart.products)
-  //console.log(cart)
- 
+  
+  const cart = useSelector(state => state.cart)
+  const cartQty = useSelector(state => state.cart.quantity)
+  const {products}  = cart 
+  
   const handleClick = (type) => {
     if (type === "increase"){
       setOrderQty(orderQty + 1)
@@ -20,24 +22,7 @@ const Cart = () => {
       orderQty > 1 && setOrderQty(orderQty - 1)
     }
   }
-  const items = [
-    {
-      name: "Yeezy Sneakers",
-      img: "/images/sneakers2.jpg",
-      size: "43",
-      color: "red",
-      price: 120,
-      qty: 2,
-    },
-    {
-      name: "Richard Mille Wristwatch",
-      img: "/images/watch2.jpg",
-      size: "L",
-      color: "red",
-      price: 2500,
-      qty: 3,
-    },
-  ];
+  
   return (
     <div className={styles.cart}>
       <h1 className={styles.cart_title}>Your Cart</h1>
@@ -47,7 +32,7 @@ const Cart = () => {
             <a className={styles.menu_item}> Shop </a>
           </Link>
           <Link href="/cart">
-            <a className={styles.menu_item}>My Cart(2)</a>
+            <a className={styles.menu_item}>My Cart({cartQty}) </a>
           </Link>
           <Link href="/">
             <a className={styles.menu_item}>My Wish List(0)</a>
@@ -57,14 +42,14 @@ const Cart = () => {
           </Link>
         </div>
         <div className={styles.cart_items}>
-          {items.map((item) => (
-            <div className={styles.item} key={item._id}>
+          {products.map((product) => (
+            <div className={styles.item} key={product._id}>
               <div className={styles.item_image_container}>
                 <div className={styles.item_image}>
-                  <img src={item.img} alt={item.name} />
-                  <p className={styles.price}>${item.price} </p>
+                  <img src={product.image} alt={product.title} />
+                  <p className={styles.price}>${product.price} </p>
                 </div>
-                <h2 className={styles.name}>{item.name}</h2>
+                <h2 className={styles.name}>{product.title}</h2>
               </div>
               <div className={styles.description}>
                 <div className={styles.row}>
@@ -75,7 +60,7 @@ const Cart = () => {
                       > 
                       - 
                     </button>
-                    <p className={styles.qty}>{orderQty}</p>
+                    <p className={styles.qty}>{product.quantity}</p>
                     <button 
                       className={styles.qty_btn}
                       onClick={() => handleClick('increase')} 
@@ -85,12 +70,12 @@ const Cart = () => {
                   </div>
                   <div
                     className={styles.color}
-                    style={{ background: `${item.color}` }}
+                    style={{ background: `${product.color}` }}
                   ></div>
                 </div>
                 <div className={styles.row}>
                   <h2 className={styles.total_title}> Total </h2>
-                  <h2 className={styles.total}>${item.qty * item.price}</h2>
+                  <h2 className={styles.total}>${product.quantity * product.price}</h2>
                 </div>
               </div>
             </div>
