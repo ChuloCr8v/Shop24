@@ -3,11 +3,16 @@ import { FaShoppingCart, FaHeart, FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import { addProduct } from "./redux/CartRedux";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Aos from 'aos'
+import 'aos/dist/aos.css'
 
 const Product = ({ product }) => {
+    useEffect(() => {
+    Aos.init({duration: 500});
+  })
   return (
-    <div className={styles.product}>
+    <div className={styles.product} data-aos="fade-up" >
       <div className={styles.img_container}>
         <img
           src={product.product_main_image_url}

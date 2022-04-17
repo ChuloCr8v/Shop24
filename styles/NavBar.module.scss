@@ -39,11 +39,12 @@
     }
     .user {
       display: flex;
+      justify-content: center;
       align-items: center;
       position: relative;
       .user_icon,
       .cart_icon {
-        font-size: 1.5rem;
+        font-size: 1em;
         &:hover,
         &:active {
           opacity: 0.3;
@@ -73,7 +74,7 @@
           text-transform: capitalize;
           position: relative;
           z-index: 99;
-          font-size: 13px;
+          font-size: 0.5em;
           background: red;
           border-radius: 8px;
           padding: 5px 20px;
@@ -199,8 +200,9 @@
 .order_count {
   @include flex_col;
   background: #fff;
-  height: 5px;
-  width: 5px;
+  height:.8px;
+  width:.8px;
+  font-size:.8em;
   border-radius: 100px;
   padding: 10px;
   position: absolute;

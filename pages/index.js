@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Hero from "../components/Hero";
+import Category from "../components/Category";
 import FeaturedProducts from "../components/FeaturedProducts";
 import Cta from "../components/Cta";
 import Subscribe from "../components/Subscribe";
@@ -20,7 +21,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Hero />
+        <Category />
         <FeaturedProducts />
         <Cta />
        {/* <Pay /> */} 
